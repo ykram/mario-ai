@@ -5,16 +5,16 @@ SRCDIR = src
 BUILDDIR = build
 CFLAGS = -shared -Wl,-soname,libAmiCoPyJava.so.1 -fPIC
 JAVAPATH = /usr/lib/jvm/default-java
-INCLUDES = -I/usr/include/python2.7 -I${JAVAPATH}/include -I${JAVAPATH}/linux
-LFLAGS = -L${JAVAPATH}/jre/lib -L${JAVAPATH}/jre/lib/amd64/server
-LIBS = -ljvm -lpthread -lz -lutil
+INCLUDES = -I/usr/include/python2.7 -I/usr/lib/jvm/java-8-oracle/include -I/usr/lib/jvm/java-8-oracle/include/linux 
+LFLAGS = -L/usr/lib/jvm/java-8-oracle/jre/lib/amd64/server/ -L/usr/lib/jvm/java-8-oracle/jre/lib 
+LIBS = -lpthread -lz -lutil
 MAIN = $(BUILDDIR)/libAmiCoPyJava.so
 
 all: $(MAIN)
 
 $(MAIN):
 	${MKDIR} -p $(BUILDDIR)
-	$(CC) $(SRCDIR)/PythonCallsJava.cc $(CFLAGS) $(INCLUDES) $(LFLAGS) $(LIBS) -o $(MAIN)
+	$(CC) $(CFLAGS) $(INCLUDES) $(LFLAGS) $(LIBS) -o $(MAIN) $(SRCDIR)/PythonCallsJava.cc -ljvm
 
 .PHONY: clean
 
